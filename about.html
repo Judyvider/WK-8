@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Brew and Sip</title>
+    <!-- We're embedding all styles directly to make the page self-contained and fully responsive. -->
+    <style>
+        /* Global Styles & Variables */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #5C4033; /* Rich Coffee Brown */
+            --secondary-color: #A36B3B; /* Warm Caramel */
+            --accent-color: #D4B28C; /* Light Tan */
+            --dark-brown: #3E2723; /* Dark Espresso */
+            --cream: #F5F5DC; /* Creamy White */
+            --light-cream: #FFFCEF; /* Soft Off-White */
+            --text-dark: #2C1810;
+            --text-light: #6B4423;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-cream);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        #navbar {
+            background: var(--primary-color);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cream);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--cream);
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 100%;
+            height: 2px;
+            background: var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link.active::after,
+        .nav-link:hover::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .cart-btn {
+            background: var(--secondary-color);
+            color: var(--cream);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .cart-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: bounceIn 0.5s ease-out;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--cream);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        main {
+            padding-top: 80px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        /* About Page Styles */
+        .about-section {
+            padding: 6rem 0;
+            background: linear-gradient(to bottom, var(--light-cream), var(--cream));
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 4rem;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .coffee-beans {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: var(--cream);
+            margin: 0 auto;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .about-text p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--light-cream);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-brown);
+            color: var(--cream);
+            padding: 4rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--primary-color);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: var(--primary-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Brew & Beans</a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#" class="nav-link">Home</a></li>
+                <li><a href="#" class="nav-link">Menu</a></li>
+                <li><a href="#" class="nav-link active">About</a></li>
+                <li><a href="#" class="nav-link">Order</a></li>
+                <li><button class="cart-btn" id="cart-btn">🛒 Cart <span class="cart-count" id="cart-count">0</span></button></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- About Page Content -->
+        <section class="about-section">
+            <div class="container">
+                <h2 class="section-title">Our Story</h2>
+                <div class="about-content">
+                    <div class="about-image">
+                        <div class="coffee-beans">☕️</div>
+                    </div>
+                    <div class="about-text">
+                        <h2>Passion for Coffee</h2>
+                        <p>Founded in 2010, Brew & Beans was born from a simple idea: to create a space where coffee is not just a drink, but an experience. We meticulously source our beans from sustainable farms around the world, ensuring every cup tells a story of its origin. Our baristas are passionate artisans, trained to bring out the unique notes and aromas in every roast.</p>
+                        <p>We believe in the power of a perfect brew to bring people together. Our cozy atmosphere is designed to be a hub for community, creativity, and connection. From our classic espresso to our seasonal specials, every item on our menu is crafted with care and a commitment to quality that you can taste in every sip.</p>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-number">2010</div>
+                                <div class="stat-label">Founded</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">15+</div>
+                                <div class="stat-label">Years of Craft</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Committed to providing the finest coffee from around the globe.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="#">Home</a></p>
+                <p><a href="#">Menu</a></p>
+                <p><a href="#" class="active">About</a></p>
+                <p><a href="#">Order</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>123 Coffee Lane, Brewville</p>
+                <p>info@brewbeans.com</p>
+                <p>(123) 456-7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Brew & Beans. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            // Close the menu when a link is clicked
+            navMenu.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
