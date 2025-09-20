@@ -62,3 +62,8 @@ Implement backend logic for form submissions.
 Add more menu items and product categories.
 
 Create a dedicated checkout page for the cart.
+
+
+https://vercel.com/judyviders-projects/coffeee-sst7/CdVqiqnezpqrv9ujq24KDzhM4JJe
+
+
